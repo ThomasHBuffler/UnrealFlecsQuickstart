@@ -6,16 +6,21 @@ public class UnrealFlecs : ModuleRules
 	{
 		PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
 
-		PublicDependencyModuleNames.AddRange(new string[] {
-			"Core",
-			"CoreUObject",
-			"Engine",
-			"UFlecsQuickstart",
-			"FlecsLibrary"
-		});
+        PublicDependencyModuleNames.AddRange(new string[] {
+            "Core",
+            "CoreUObject",
+            "Engine",
+            "UFlecsQuickstart",
+            "FlecsLibrary",
+            "Niagara"
+        });
 
-		//The path for the header files
-		PublicIncludePaths.AddRange(new string[] {"UnrealFlecs/Public"});
+        PrivateDependencyModuleNames.AddRange(new string[] {
+            "StructUtils"
+        });
+
+        //The path for the header files
+        PublicIncludePaths.AddRange(new string[] {"UnrealFlecs/Public"});
 		//The path for the source files
 		PrivateIncludePaths.AddRange(new string[] {"UnrealFlecs/Private"});
 	}

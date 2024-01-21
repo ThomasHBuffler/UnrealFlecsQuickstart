@@ -2,6 +2,7 @@
 
 
 #include "Scene/ISMController.h"
+#include "Components/InstancedStaticMeshComponent.h"
 
 
 AISMController::AISMController()
