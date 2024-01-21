@@ -5,11 +5,12 @@
 #include "CoreMinimal.h"
 #include "Engine/DataAsset.h"
 #include "InstancedStruct.h"
-#include "../Public/FlecsComponents.h"
+#include "NiagaraComponent.h"
+#include "NiagaraFunctionLibrary.h"
+#include "NiagaraSystem.h"
 #include "../../FlecsLibrary/Public/flecs.h"
 #include "FlecsPrefabDefinition.generated.h"
 
-/*
 #pragma region Components
 USTRUCT(Blueprintable)
 struct UNREALFLECS_API FFLECSGenericComp
@@ -130,7 +131,6 @@ struct UNREALFLECS_API FEntitySpawnerComp : public FSpawnEvent
 {
 	GENERATED_BODY()
 
-	UPROPERTY(EditDefaultsOnly)
 	TArray<TObjectPtr<UFlecsPrefabDefinition>> PrefabToSpawn;
 };
 
@@ -221,7 +221,16 @@ struct UNREALFLECS_API FAreaOfEffectDamageComp : public FDamageComp
 };
 
 #pragma endregion
-*/
+
+USTRUCT()
+struct UNREALFLECS_API FFLECSPrefab
+{
+    GENERATED_BODY()
+    UPROPERTY(EditDefaultsOnly, meta = (ExcludeBaseStruct, BaseStruct = "/Script/UnrealFlecs.FLECSGenericComp"))
+    TArray<FInstancedStruct> Components;
+   // void SetComponentsOnEntity(flecs::world& InWorld, flecs::entity& InEntity);
+};
+
 UCLASS()
 class UNREALFLECS_API UFlecsPrefabDefinition : public UDataAsset
 {

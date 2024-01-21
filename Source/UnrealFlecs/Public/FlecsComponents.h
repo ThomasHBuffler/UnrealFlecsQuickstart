@@ -5,11 +5,21 @@
 #include "CoreMinimal.h"
 #include "Engine/DataAsset.h"
 #include "InstancedStruct.h"
-#include "../Public/FlecsComponents.h"
-#include "../../FlecsLibrary/Public/flecs.h"
-#include "FlecsPrefabDefinition.generated.h"
+#include "NiagaraSystem.h"
+#include "FlecsComponents.generated.h"
 
-/*
+class UFlecsPrefabDefinition;
+
+/**
+ *
+ */
+UCLASS()
+class UNREALFLECS_API UFlecsComponents : public UObject
+{
+	GENERATED_BODY()
+
+};
+
 #pragma region Components
 USTRUCT(Blueprintable)
 struct UNREALFLECS_API FFLECSGenericComp
@@ -22,8 +32,8 @@ USTRUCT()
 struct UNREALFLECS_API FLocationComp : public FFLECSGenericComp
 {
 	GENERATED_BODY()
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	FVector Location = FVector::ZeroVector;
+		UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		FVector Location = FVector::ZeroVector;
 };
 
 USTRUCT()
@@ -31,8 +41,8 @@ struct UNREALFLECS_API FVelocityComp : public FFLECSGenericComp
 {
 	GENERATED_BODY()
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	FVector Velocity = FVector(100, 0, 0);
+		UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		FVector Velocity = FVector(100, 0, 0);
 };
 
 USTRUCT()
@@ -40,8 +50,8 @@ struct UNREALFLECS_API FLocalAccelerationComp : public FFLECSGenericComp
 {
 	GENERATED_BODY()
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	FVector Acceleration = FVector(100, 0, 0);
+		UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		FVector Acceleration = FVector(100, 0, 0);
 };
 
 USTRUCT()
@@ -49,8 +59,8 @@ struct UNREALFLECS_API FGravityAccelerationComp : public FFLECSGenericComp
 {
 	GENERATED_BODY()
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	float Gravity = -980;
+		UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		float Gravity = -980;
 };
 
 USTRUCT()
@@ -58,8 +68,8 @@ struct UNREALFLECS_API FMassComp : public FFLECSGenericComp
 {
 	GENERATED_BODY()
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (ClampMin = "0.0"))
-	float Mass = 1;
+		UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (ClampMin = "0.0"))
+		float Mass = 1;
 };
 
 USTRUCT()
@@ -67,8 +77,8 @@ struct UNREALFLECS_API FRotationComp : public FFLECSGenericComp
 {
 	GENERATED_BODY()
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	FRotator Rotation = FRotator::ZeroRotator;
+		UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		FRotator Rotation = FRotator::ZeroRotator;
 };
 
 USTRUCT()
@@ -76,8 +86,8 @@ struct UNREALFLECS_API FDragComp : public FFLECSGenericComp
 {
 	GENERATED_BODY()
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (ClampMin = "0.0", ClampMax = "1.0"))
-	float Drag = 0;
+		UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (ClampMin = "0.0", ClampMax = "1.0"))
+		float Drag = 0;
 };
 
 USTRUCT()
@@ -85,8 +95,8 @@ struct UNREALFLECS_API FMaxSpeedComp : public FFLECSGenericComp
 {
 	GENERATED_BODY()
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	float MaxSpeed = 1000;
+		UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		float MaxSpeed = 1000;
 };
 
 // Generic Events
@@ -100,16 +110,16 @@ USTRUCT()
 struct UNREALFLECS_API FTimerEventComp : public FGenericEvent
 {
 	GENERATED_BODY()
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (ClampMin = "0.0"))
-	float TimeSeconds = 1;
+		UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (ClampMin = "0.0"))
+		float TimeSeconds = 1;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	bool bLoop = false;
+		bool bLoop = false;
 
 
 	// Instanced struct FGeneric Event
 	UPROPERTY(EditDefaultsOnly, meta = (ExcludeBaseStruct, BaseStruct = "/Script/UnrealFlecs.GenericEvent"))
-	TArray<FInstancedStruct> EventsToTrigger;
+		TArray<FInstancedStruct> EventsToTrigger;
 };
 
 USTRUCT()
@@ -130,8 +140,8 @@ struct UNREALFLECS_API FEntitySpawnerComp : public FSpawnEvent
 {
 	GENERATED_BODY()
 
-	UPROPERTY(EditDefaultsOnly)
-	TArray<TObjectPtr<UFlecsPrefabDefinition>> PrefabToSpawn;
+		UPROPERTY(EditDefaultsOnly)
+		TArray<TObjectPtr<UFlecsPrefabDefinition>> PrefabToSpawn;
 };
 
 USTRUCT()
@@ -159,11 +169,11 @@ struct UNREALFLECS_API FProjectileCollisionResponseComp : public FProjectileColl
 {
 	GENERATED_BODY()
 
-	UPROPERTY(EditDefaultsOnly, meta = (ExcludeBaseStruct, BaseStruct = "/Script/UnrealFlecs.GenericEvent"))
-	TArray<FInstancedStruct> EventsToTrigger;
+		UPROPERTY(EditDefaultsOnly, meta = (ExcludeBaseStruct, BaseStruct = "/Script/UnrealFlecs.GenericEvent"))
+		TArray<FInstancedStruct> EventsToTrigger;
 
 	UPROPERTY(EditDefaultsOnly, meta = (ExcludeBaseStruct, BaseStruct = "/Script/UnrealFlecs.ImpactEffectComp"))
-	TArray<FInstancedStruct> ImpactEffects;
+		TArray<FInstancedStruct> ImpactEffects;
 };
 
 USTRUCT()
@@ -221,15 +231,11 @@ struct UNREALFLECS_API FAreaOfEffectDamageComp : public FDamageComp
 };
 
 #pragma endregion
-*/
-UCLASS()
-class UNREALFLECS_API UFlecsPrefabDefinition : public UDataAsset
+
+USTRUCT()
+struct UNREALFLECS_API FFLECSPrefab
 {
-    GENERATED_BODY()
-       
-    UPROPERTY(EditDefaultsOnly)
-    TObjectPtr<UFlecsPrefabDefinition> ParentPrefab = nullptr;
-    
-    UPROPERTY(EditDefaultsOnly)
-    FFLECSPrefab Prefab;
+	GENERATED_BODY()
+	UPROPERTY(EditDefaultsOnly, meta = (ExcludeBaseStruct, BaseStruct = "/Script/UnrealFlecs.FLECSGenericComp"))
+	TArray<FInstancedStruct> Components;
 };
